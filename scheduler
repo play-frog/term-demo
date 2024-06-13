@@ -1,0 +1,28 @@
+#include <stdio.h>
+typedef struct{
+	int pid;//프로젝트 id 
+	int cbt;//cpu burst
+	int ibt;//io burst 
+	int at;//도착시간 
+	int priority;//우선순위 
+}proc;
+int fcfs(proc b[5]){
+	//at가 가장 빠른(적은)순서로 정렬해 실행 
+	return 0;
+}
+int sjf(){
+	//cbt+ibt가 가장 적은 순서로 실행, at를 고려하기  
+	return 0;
+}
+int priority(){
+	return 0;
+}
+int rr(){
+	return 0;
+}
+int main(void){
+	proc a[5];
+	for(int i=0;i<5;i++){
+	scanf("%d %d %d %d %d",&a[i].pid, &a[i].cbt, &a[i].ibt,&a[i].at,&a[i].priority);}
+	//printf("%d %d %d %d %d", a.pid, a.cbt, a.ibt, a.at, a.priority);
+}

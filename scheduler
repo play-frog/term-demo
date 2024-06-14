@@ -8,7 +8,7 @@ typedef struct{
 }proc;
 int fcfs(proc b[5]){
 	//at가 가장 빠른(적은)순서로 정렬해 실행 
-	return 0;
+	return 0; //proc[b]를 프로세스가 실행되는순서로 정렬한 값을 return하기 
 }
 int sjf(){
 	//cbt+ibt가 가장 적은 순서로 실행, at를 고려하기  

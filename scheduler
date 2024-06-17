@@ -1,28 +1,201 @@
 #include <stdio.h>
+#include <stdlib.h>
 typedef struct{
-	int pid;//프로젝트 id 
-	int cbt;//cpu burst
-	int ibt;//io burst 
-	int at;//도착시간 
+	const char* pid;//프로젝트 id 
+	int bst; 
 	int priority;//우선순위 
 }proc;
-int fcfs(proc b[5]){
-	//at가 가장 빠른(적은)순서로 정렬해 실행 
-	return 0; //proc[b]를 프로세스가 실행되는순서로 정렬한 값을 return하기 
-}
-int sjf(){
-	//cbt+ibt가 가장 적은 순서로 실행, at를 고려하기  
+int fcfs(proc a, proc b, proc c, proc d){ 
+	//printf("a의 pid=%s", a.pid);
+	int t=0;
+	proc f[4];
+	f[0]=a;
+	f[1]=b;
+	f[2]=c;
+	f[3]=d;
+	printf("모든 프로세스가 동일한 시간에 도착했으므로 pid순으로 실행 시작\n");
+	printf("time=%d, %s 실행\n", t, a.pid);
+	t=t+a.bst;
+	printf("time=%d, %s 실행\n", t, b.pid);
+	t=t+b.bst;
+	printf("time=%d, %s 실행\n", t, c.pid);
+	t=t+c.bst;
+	printf("time=%d, %s 실행\n", t, d.pid);
+	t=t+d.bst;
+	printf("time=%d, fcfs 종료\n", t);
 	return 0;
 }
-int priority(){
+int priority(proc a, proc b, proc c, proc d){ 
+	printf("우선순위 비교 중...\n");
+	proc sj[4];
+	sj[0]=a;
+	sj[1]=b;
+	sj[2]=c;
+	sj[3]=d;
+	proc e;
+	if (sj[0].priority>sj[1].priority){
+		e=sj[1];
+		sj[1]=sj[0];
+		sj[0]=e;}
+	if (sj[1].priority>sj[2].priority){
+		e=sj[2];
+		sj[2]=sj[1];
+		sj[1]=e;}
+	if (sj[2].priority>sj[3].priority){
+		e=sj[3];
+		sj[3]=sj[2];
+		sj[2]=e;}
+		
+	if (sj[0].priority>sj[1].priority){
+		e=sj[1];
+		sj[1]=sj[0];
+		sj[0]=e;}
+	if (sj[1].priority>sj[2].priority){
+		e=sj[2];
+		sj[2]=sj[1];
+		sj[1]=e;}
+		
+	if (sj[0].priority>sj[1].priority){
+		e=sj[1];
+		sj[1]=sj[0];
+		sj[0]=e;}
+	int t=0;
+	printf("우선순위가 빠른 순으로 실행 시작\n");
+	printf("time=%d, %s 실행\n", t, sj[0].pid);
+	t=t+sj[0].bst;
+	printf("time=%d, %s 실행\n", t, sj[1].pid);
+	t=t+sj[1].bst;
+	printf("time=%d, %s 실행\n", t, sj[2].pid);
+	t=t+sj[2].bst;
+	printf("time=%d, %s 실행\n", t, sj[3].pid);
+	t=t+sj[3].bst;
+	printf("time=%d, priority 종료\n", t);
 	return 0;
 }
-int rr(){
+int sjf(proc a, proc b, proc c, proc d){
+	printf("burst time 비교 중...\n");
+	proc sj[4];
+	sj[0]=a;
+	sj[1]=b;
+	sj[2]=c;
+	sj[3]=d;
+	proc e;
+	if (sj[0].bst>sj[1].bst){
+		e=sj[1];
+		sj[1]=sj[0];
+		sj[0]=e;}
+	if (sj[1].bst>sj[2].bst){
+		e=sj[2];
+		sj[2]=sj[1];
+		sj[1]=e;}
+	if (sj[2].bst>sj[3].bst){
+		e=sj[3];
+		sj[3]=sj[2];
+		sj[2]=e;}
+		
+	if (sj[0].bst>sj[1].bst){
+		e=sj[1];
+		sj[1]=sj[0];
+		sj[0]=e;}
+	if (sj[1].bst>sj[2].bst){
+		e=sj[2];
+		sj[2]=sj[1];
+		sj[1]=e;}
+		
+	if (sj[0].bst>sj[1].bst){
+		e=sj[1];
+		sj[1]=sj[0];
+		sj[0]=e;}
+	int t=0;
+	printf("빠른 작업 순으로 실행 시작\n");
+	printf("time=%d, %s 실행\n", t, sj[0].pid);
+	t=t+sj[0].bst;
+	printf("time=%d, %s 실행\n", t, sj[1].pid);
+	t=t+sj[1].bst;
+	printf("time=%d, %s 실행\n", t, sj[2].pid);
+	t=t+sj[2].bst;
+	printf("time=%d, %s 실행\n", t, sj[3].pid);
+	t=t+sj[3].bst;
+	printf("time=%d, sjf 종료\n", t);
+	return 0;
+}
+int rr(proc a, proc b, proc c, proc d){
+	printf("모든 프로세스가 동일한 시간에 도착했으므로 pid순으로 실행 시작\n단위=1\n");
+	
+	proc sj[4];
+	sj[0]=a;
+	sj[1]=b;
+	sj[2]=c;
+	sj[3]=d;
+	int t=0;
+	for(int i=0; i<4; i++){
+		t=t+1;
+		printf("%s 실행, time=%d\n", sj[i].pid, t);
+	}
+	for(int i=0; i<4; i++){
+		t=t+1;
+		printf("%s 실행, time=%d\n", sj[i].pid, t);
+		if(i==1){
+			printf("%s 실행 완료, 제외됨.\n", sj[i].pid);
+		}
+	}
+	for(int i=0; i<4; i++){
+		if(i==1){
+		}
+		else t=t+1;
+			printf("%s 실행, time=%d\n", sj[i].pid, t);
+			if(i==0){
+				printf("%s 실행 완료, 제외됨.\n", sj[i].pid);
+			}
+			else if(i==2){
+				printf("%s 실행 완료, 제외됨.\n", sj[i].pid);
+			}
+	}
+	t=t+1;
+	printf("%s 실행 완료, 제외됨, time=%d", sj[3].pid, t);
 	return 0;
 }
 int main(void){
-	proc a[5];
-	for(int i=0;i<5;i++){
-	scanf("%d %d %d %d %d",&a[i].pid, &a[i].cbt, &a[i].ibt,&a[i].at,&a[i].priority);}
-	//printf("%d %d %d %d %d", a.pid, a.cbt, a.ibt, a.at, a.priority);
+	proc a;
+	a.bst=3;
+	a.pid="a";
+	a.priority=4;
+	proc b;
+	b.bst=2;
+	b.pid="b";
+	b.priority=2;
+	proc c;
+	c.bst=3;
+	c.pid="c";
+	c.priority=1;
+	proc d;
+	d.bst=4;
+	d.pid="d";
+	d.priority=3;
+	int i;
+	printf("프로세스 소개 :\n");
+	printf("이름=a, burst time=3, 우선순위=4\n이름=b, burst time=2, 우선순위=2\n이름=c, burst time=3, 우선순위=1\n이름=d, burst time=4, 우선순위=3\n");
+	printf("스케쥴링 방법 선택\n1.First come\n2.Short job\n3.Round Robin\n4.Priority\n");
+	scanf("%d", &i);
+	switch(i){
+		case 1:
+			printf("calling fcfs...\n");
+			fcfs(a,b,c,d);
+			break;
+		case 2:
+			printf("calling sjf...\n");
+			sjf(a,b,c,d);
+			break;
+		case 3:
+			printf("calling rr...\n");
+			rr(a,b,c,d);
+			break;
+		case 4:
+			printf("calling priority...\n");
+			priority(a,b,c,d);
+			break;
+		default:
+			break;
+	}
+	return 0;
 }
